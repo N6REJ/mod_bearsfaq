@@ -1,0 +1,41 @@
+name: Build Joomla Module
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build_module:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+      - name: Joomla Module Packager
+        uses: N6REJ/joomla-packager@main
+        with:
+          author: 'N6REJ'
+          copyright-holder: 'N6REJ'
+          copyright-start-year: '2025'
+          extension-type: 'module'
+          github-token: ${{ secrets.GH_PAT }}
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          if git diff --exit-code; then
+            echo "No changes to commit"
+          else
+            git add .
+            git commit -m "Update version to ${{ steps.package.outputs.version }} [skip ci]"
+            git push origin main
+          fi
