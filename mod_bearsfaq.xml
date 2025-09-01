@@ -32,6 +32,26 @@
                 />
                 <field name="max_articles" type="number" label="MOD_BEARSFAQ_FIELD_MAX_ARTICLES_LABEL"
                        description="MOD_BEARSFAQ_FIELD_MAX_ARTICLES_DESC" default="100" min="1" max="500"/>
+                <field
+                  name="tab_style"
+                  type="list"
+                  label="MOD_BEARSFAQ_FIELD_TAB_STYLE_LABEL"
+                  description="MOD_BEARSFAQ_FIELD_TAB_STYLE_DESC"
+                  default="tabs"
+                >
+                  <option value="tabs">MOD_BEARSFAQ_FIELD_TAB_STYLE_OPTION_TABS</option>
+                  <option value="pills">MOD_BEARSFAQ_FIELD_TAB_STYLE_OPTION_PILLS</option>
+                </field>
+                <field
+                  name="tab_orientation"
+                  type="list"
+                  label="MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_LABEL"
+                  description="MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_DESC"
+                  default="horizontal"
+                >
+                  <option value="horizontal">MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_OPTION_HORIZONTAL</option>
+                  <option value="vertical">MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_OPTION_VERTICAL</option>
+                </field>
             </fieldset>
             <fieldset name="advanced">
                 <field

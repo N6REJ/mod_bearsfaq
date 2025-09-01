@@ -13,10 +13,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Tag\TagHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Content\Site\Model\ArticlesModel;
+use Joomla\Component\Content\Site\Helper\RouteHelper as ContentHelperRoute;
 
 // Ensure Bootstrap 5 assets are loaded
 HTMLHelper::_('bootstrap.framework');
-HTMLHelper::_('bootstrap.tabs');
 
 // Get database
 $db    = Factory::getDbo();
@@ -97,8 +97,21 @@ uasort($faqTabs, function($a, $b) {
 
 $moduleId = 'bearsfaq_' . (isset($module->id) ? (int)$module->id : uniqid());
 echo '<div id="' . $moduleId . '" class="bearsfaq-tabs">';
+// Tabs style/orientation parameters
+$tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
+$tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'
+
+// Compose Bootstrap classes
+$tabClass  = ($tabStyle === 'pills') ? 'nav-pills' : 'nav-tabs';
+if ($tabOrientation === 'vertical') {
+    // For vertical, use Bootstrap's flex-column but allow responsive horizontal row at xs
+    $tabClass .= ' flex-column flex-sm-row';
+} else {
+    $tabClass .= ' flex-row';
+}
+
 // Tabs header
-echo '<ul class="nav nav-tabs mb-3" id="' . $moduleId . '-tab" role="tablist">';
+echo '<ul class="nav ' . $tabClass . ' mb-3" id="' . $moduleId . '-tab" role="tablist">';
 $i = 0;
 foreach ($faqTabs as $tabId => $tabInfo) {
     $active = $i === 0 ? 'active' : '';
@@ -127,8 +140,9 @@ foreach ($faqTabs as $tabId => $tabInfo) {
         echo '<div class="accordion-item">';
         echo '<h2 class="accordion-header" id="' . $headingId . '">';
         // Use data-bs-parent attribute to ensure only one is open per accordion/tab
+        $link = Route::_(ContentHelperRoute::getArticleRoute($faq->id . ':' . $faq->alias, $faq->catid));
         echo '<button class="accordion-button ' . ($isFirst ? '' : 'collapsed') . '" type="button" data-bs-toggle="collapse" data-bs-target="#' . $collapseId . '" aria-expanded="' . ($isFirst ? 'true' : 'false') . '" aria-controls="' . $collapseId . '">';
-        echo htmlspecialchars($faq->title);
+        echo '<a href="' . $link . '">' . htmlspecialchars($faq->title) . '</a>';
         echo '</button>';
         echo '</h2>';
         echo '<div id="' . $collapseId . '" class="accordion-collapse collapse ' . $isFirst . '" aria-labelledby="' . $headingId . '" data-bs-parent="#' . $accordId . '">';
