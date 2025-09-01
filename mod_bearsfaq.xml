@@ -94,9 +94,26 @@
                 </field>
             </fieldset>
             <fieldset name="styling" label="Styling">
-                <field name="active_tab_color" type="color" label="Active Tab Color" description="Color applied to the active tab text" default="" />
+                <field name="active_tab_color" type="color" label="Active Tab Background Color" description="Background color applied to the active tab" default="" />
                 <field name="question_color" type="color" label="Question Color" description="Color of question links in the accordion" default="" />
                 <field name="border_color" type="color" label="Border Color" description="Color for tab borders (left, top, right)" default="" />
+                <field name="border_radius" type="number" label="Border Radius (px)" description="Top border radius for tabs in pixels" default="8" min="0" max="50" />
+                <field name="tab_gap" type="number" label="Tab Gap (px)" description="Gap between tabs in pixels" default="2" min="0" max="20" />
+                <field
+                  name="tab_alignment"
+                  type="list"
+                  label="Tab Alignment"
+                  description="How tabs are aligned within the container"
+                  default="flex-start"
+                >
+                  <option value="flex-start">Left</option>
+                  <option value="flex-end">Right</option>
+                  <option value="center">Centered</option>
+                  <option value="space-between">Space Between</option>
+                  <option value="space-around">Space Around</option>
+                  <option value="stretch">Justified</option>
+                  <option value="equal-width">Equal Width</option>
+                </field>
             </fieldset>
         </fields>
     </config>

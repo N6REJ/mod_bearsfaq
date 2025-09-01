@@ -110,13 +110,29 @@ $moduleId = 'bearsfaq_' . (isset($module->id) ? (int)$module->id : uniqid());
 $activeTabColor = trim((string) $params->get('active_tab_color', ''));
 $questionColor  = trim((string) $params->get('question_color', ''));
 $borderColor    = trim((string) $params->get('border_color', ''));
+$borderRadius   = (int) $params->get('border_radius', 8);
+$tabGap         = (int) $params->get('tab_gap', 2);
+$tabAlignment   = trim((string) $params->get('tab_alignment', 'flex-start'));
+
 $styleVars = [];
 if ($activeTabColor !== '') { $styleVars[] = '--bfq-active-tab-color:' . htmlspecialchars($activeTabColor, ENT_QUOTES, 'UTF-8'); }
 if ($questionColor  !== '') { $styleVars[] = '--bfq-question-color:' . htmlspecialchars($questionColor, ENT_QUOTES, 'UTF-8'); }
 if ($borderColor    !== '') { $styleVars[] = '--bfq-border-color:' . htmlspecialchars($borderColor, ENT_QUOTES, 'UTF-8'); }
+$styleVars[] = '--bfq-border-radius:' . $borderRadius . 'px';
+$styleVars[] = '--bfq-tab-gap:' . $tabGap . 'px';
+$styleVars[] = '--bfq-tab-alignment:' . htmlspecialchars($tabAlignment, ENT_QUOTES, 'UTF-8');
+
 $styleAttr = $styleVars ? ' style="' . implode(';', $styleVars) . '"' : '';
 
-echo '<div id="' . $moduleId . '" class="bearsfaq-tabs"' . $styleAttr . '>';
+// Add alignment class for special handling
+$alignmentClass = '';
+if ($tabAlignment === 'equal-width') {
+    $alignmentClass = ' bearsfaq-equal-width';
+} elseif ($tabAlignment === 'stretch') {
+    $alignmentClass = ' bearsfaq-justified';
+}
+
+echo '<div id="' . $moduleId . '" class="bearsfaq-tabs' . $alignmentClass . '"' . $styleAttr . '>';
 // Tabs style/orientation parameters
 $tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
 $tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'

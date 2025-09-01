@@ -12,6 +12,9 @@
   --bfq-question-color: inherit;   /* default uses template link/text color */
   --bfq-border-color: rgba(0,0,0,0.275); /* lightened 50% */
   --bfq-active-underline-height: 2px; /* height of the active underline (::after) */
+  --bfq-border-radius: 8px; /* default border radius */
+  --bfq-tab-gap: 2px; /* default gap between tabs */
+  --bfq-tab-alignment: flex-start; /* default tab alignment */
 }
 
 /* Tabs/Pills spacing and interactions */
@@ -20,15 +23,32 @@
   margin-bottom: 1rem;
 }
 
-/* 2px gap between each tab */
+/* Configurable gap between each tab */
 .bearsfaq-tabs .nav {
   display: flex; /* enforce flex layout for gap to work reliably */
-  gap: 2px;
+  gap: var(--bfq-tab-gap);
+  justify-content: var(--bfq-tab-alignment);
+}
+/* For justified alignment, make nav items fill available space */
+.bearsfaq-tabs.bearsfaq-justified .nav > .nav-item {
+  flex: 1;
+}
+/* For equal width alignment, make nav items share width equally */
+.bearsfaq-tabs.bearsfaq-equal-width .nav {
+  width: 100% !important;
+}
+.bearsfaq-tabs.bearsfaq-equal-width .nav > .nav-item {
+  flex: 1 1 0% !important;
+  max-width: none !important;
+}
+.bearsfaq-tabs.bearsfaq-equal-width .nav > .nav-item > .nav-link {
+  width: 100% !important;
+  text-align: center !important;
 }
 /* Fallback spacing if gap is not supported or overridden */
-.bearsfaq-tabs .nav > .nav-item { margin-right: 2px; }
+.bearsfaq-tabs .nav > .nav-item { margin-right: var(--bfq-tab-gap); }
 .bearsfaq-tabs .nav > .nav-item:last-child { margin-right: 0; }
-.bearsfaq-tabs .nav.flex-column > .nav-item { margin-right: 0; margin-bottom: 2px; }
+.bearsfaq-tabs .nav.flex-column > .nav-item { margin-right: 0; margin-bottom: var(--bfq-tab-gap); }
 .bearsfaq-tabs .nav.flex-column > .nav-item:last-child { margin-bottom: 0; }
 
 .bearsfaq-tabs .nav-link {
@@ -39,20 +59,20 @@
   font-weight: 600;
 }
 
-/* 8px top radius for tabs (increase specificity and cover active/show states) */
+/* Configurable top radius for tabs (increase specificity and cover active/show states) */
 .bearsfaq-tabs .nav.nav-tabs .nav-link,
 .bearsfaq-tabs .nav.nav-tabs .nav-item.show .nav-link,
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active {
-  border-top-left-radius: 8px !important;
-  border-top-right-radius: 8px !important;
+  border-top-left-radius: var(--bfq-border-radius) !important;
+  border-top-right-radius: var(--bfq-border-radius) !important;
 }
 
-/* 8px top radius for pills as well */
+/* Configurable top radius for pills as well */
 .bearsfaq-tabs .nav.nav-pills .nav-link,
 .bearsfaq-tabs .nav.nav-pills .nav-item.show .nav-link,
 .bearsfaq-tabs .nav.nav-pills .nav-link.active {
-  border-top-left-radius: 8px !important;
-  border-top-right-radius: 8px !important;
+  border-top-left-radius: var(--bfq-border-radius) !important;
+  border-top-right-radius: var(--bfq-border-radius) !important;
 }
 
 /* Darker borders and subtle shadow to emphasize tab edges */
@@ -67,7 +87,7 @@
 }
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active,
 .bearsfaq-tabs .nav.nav-tabs .nav-item.show .nav-link {
-  color: var(--bfq-active-tab-color);
+  background-color: var(--bfq-active-tab-color);
   border-left-color: var(--bfq-border-color) !important;
   border-top-color: var(--bfq-border-color) !important;
   border-right-color: var(--bfq-border-color) !important;
@@ -120,7 +140,7 @@
 }
 .bearsfaq-tabs .nav.nav-pills .nav-link.active,
 .bearsfaq-tabs .nav.nav-pills .nav-item.show .nav-link {
-  color: var(--bfq-active-tab-color);
+  background-color: var(--bfq-active-tab-color);
   border-left-color: var(--bfq-border-color) !important;
   border-top-color: var(--bfq-border-color) !important;
   border-right-color: var(--bfq-border-color) !important;
