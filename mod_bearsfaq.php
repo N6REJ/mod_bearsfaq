@@ -18,6 +18,15 @@ use Joomla\Component\Content\Site\Helper\RouteHelper as ContentHelperRoute;
 // Ensure Bootstrap 5 assets are loaded
 HTMLHelper::_('bootstrap.framework');
 
+// Load module stylesheet from media/mod_bearsfaq
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+$mediaCss  = 'media/mod_bearsfaq/css/mod_bearsfaq.css';
+$moduleCss = 'modules/mod_bearsfaq/media/css/mod_bearsfaq.css';
+$cssPath   = file_exists(JPATH_ROOT . '/' . $mediaCss)
+    ? $mediaCss
+    : (file_exists(JPATH_ROOT . '/' . $moduleCss) ? $moduleCss : $mediaCss);
+$wa->registerAndUseStyle('mod_bearsfaq.styles', $cssPath);
+
 // Get database
 $db    = Factory::getDbo();
 $app   = Factory::getApplication();
@@ -96,7 +105,18 @@ uasort($faqTabs, function($a, $b) {
 });
 
 $moduleId = 'bearsfaq_' . (isset($module->id) ? (int)$module->id : uniqid());
-echo '<div id="' . $moduleId . '" class="bearsfaq-tabs">';
+
+// Styling params as CSS variables
+$activeTabColor = trim((string) $params->get('active_tab_color', ''));
+$questionColor  = trim((string) $params->get('question_color', ''));
+$borderColor    = trim((string) $params->get('border_color', ''));
+$styleVars = [];
+if ($activeTabColor !== '') { $styleVars[] = '--bfq-active-tab-color:' . htmlspecialchars($activeTabColor, ENT_QUOTES, 'UTF-8'); }
+if ($questionColor  !== '') { $styleVars[] = '--bfq-question-color:' . htmlspecialchars($questionColor, ENT_QUOTES, 'UTF-8'); }
+if ($borderColor    !== '') { $styleVars[] = '--bfq-border-color:' . htmlspecialchars($borderColor, ENT_QUOTES, 'UTF-8'); }
+$styleAttr = $styleVars ? ' style="' . implode(';', $styleVars) . '"' : '';
+
+echo '<div id="' . $moduleId . '" class="bearsfaq-tabs"' . $styleAttr . '>';
 // Tabs style/orientation parameters
 $tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
 $tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'

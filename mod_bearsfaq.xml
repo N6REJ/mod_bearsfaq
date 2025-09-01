@@ -15,6 +15,10 @@
         <filename>index.html</filename>
         <folder>language</folder>
     </files>
+    <media folder="media" destination="mod_bearsfaq">
+        <folder>css</folder>
+        <filename>index.html</filename>
+    </media>
     <languages>
         <language tag="en-GB">language/en-GB/en-GB.mod_bearsfaq.ini</language>
         <language tag="en-GB">language/en-GB/en-GB.mod_bearsfaq.sys.ini</language>
@@ -88,6 +92,11 @@
                         value="static">
                     </option>
                 </field>
+            </fieldset>
+            <fieldset name="styling" label="Styling">
+                <field name="active_tab_color" type="color" label="Active Tab Color" description="Color applied to the active tab text" default="" />
+                <field name="question_color" type="color" label="Question Color" description="Color of question links in the accordion" default="" />
+                <field name="border_color" type="color" label="Border Color" description="Color for tab borders (left, top, right)" default="" />
             </fieldset>
         </fields>
     </config>
