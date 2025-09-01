@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
       - name: Joomla Module Packager
         uses: N6REJ/joomla-packager@main
         with:
@@ -25,7 +25,7 @@ jobs:
           copyright-holder: 'N6REJ'
           copyright-start-year: '2025'
           extension-type: 'module'
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_PAT }}
 
       - name: Commit changes
         run: |
