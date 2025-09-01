@@ -106,6 +106,10 @@ uasort($faqTabs, function($a, $b) {
 
 $moduleId = 'bearsfaq_' . (isset($module->id) ? (int)$module->id : uniqid());
 
+// Tabs style/orientation parameters
+$tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
+$tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'
+
 // Styling params as CSS variables
 $activeTabColor = trim((string) $params->get('active_tab_color', ''));
 $questionColor  = trim((string) $params->get('question_color', ''));
@@ -132,16 +136,19 @@ if ($tabAlignment === 'equal-width') {
     $alignmentClass = ' bearsfaq-justified';
 }
 
-echo '<div id="' . $moduleId . '" class="bearsfaq-tabs' . $alignmentClass . '"' . $styleAttr . '>';
-// Tabs style/orientation parameters
-$tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
-$tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'
+// Add orientation class for layout handling
+$orientationClass = '';
+if ($tabOrientation === 'vertical') {
+    $orientationClass = ' bearsfaq-vertical';
+}
+
+echo '<div id="' . $moduleId . '" class="bearsfaq-tabs' . $alignmentClass . $orientationClass . '"' . $styleAttr . '>';
 
 // Compose Bootstrap classes
 $tabClass  = ($tabStyle === 'pills') ? 'nav-pills' : 'nav-tabs';
 if ($tabOrientation === 'vertical') {
-    // For vertical, use Bootstrap's flex-column but allow responsive horizontal row at xs
-    $tabClass .= ' flex-column flex-sm-row';
+    // For vertical, use Bootstrap's flex-column
+    $tabClass .= ' flex-column';
 } else {
     $tabClass .= ' flex-row';
 }

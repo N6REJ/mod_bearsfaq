@@ -23,11 +23,44 @@
   margin-bottom: 1rem;
 }
 
+/* Vertical layout: side-by-side navbar and content */
+.bearsfaq-tabs.bearsfaq-vertical {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.bearsfaq-tabs.bearsfaq-vertical .nav.flex-column {
+  margin-bottom: 0;
+  margin-right: 0;
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.bearsfaq-tabs.bearsfaq-vertical .tab-content {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+/* For vertical layout, replace nav container box-shadow with padding */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs {
+  box-shadow: none !important;
+  padding: 4px 6px 4px 4px !important; /* equivalent to shadow visual space */
+  margin-bottom: 1rem !important; /* match the top margin spacing */
+}
+
 /* Configurable gap between each tab */
 .bearsfaq-tabs .nav {
   display: flex; /* enforce flex layout for gap to work reliably */
   gap: var(--bfq-tab-gap);
+}
+/* Only apply justify-content for horizontal layouts */
+.bearsfaq-tabs .nav:not(.flex-column) {
   justify-content: var(--bfq-tab-alignment);
+}
+/* For vertical layouts, align items instead */
+.bearsfaq-tabs .nav.flex-column {
+  align-items: var(--bfq-tab-alignment);
 }
 /* For justified alignment, make nav items fill available space */
 .bearsfaq-tabs.bearsfaq-justified .nav > .nav-item {
@@ -67,6 +100,20 @@
   border-top-right-radius: var(--bfq-border-radius) !important;
 }
 
+/* For vertical layout, add all corner radius */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-link,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-item.show .nav-link,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-link.active {
+  border-radius: var(--bfq-border-radius) !important;
+}
+
+/* For vertical layout pills, add all corner radius */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-link,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-item.show .nav-link,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-link.active {
+  border-radius: var(--bfq-border-radius) !important;
+}
+
 /* Configurable top radius for pills as well */
 .bearsfaq-tabs .nav.nav-pills .nav-link,
 .bearsfaq-tabs .nav.nav-pills .nav-item.show .nav-link,
@@ -85,6 +132,14 @@
   position: relative;
   z-index: 1;
 }
+
+/* For vertical layout, replace box-shadow with padding and add bottom border */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-link {
+  box-shadow: none !important;
+  padding-top: calc(2px + 1px + 2px) !important; /* original padding + border + shadow equivalent */
+  padding-bottom: calc(2px + 1px + 2px) !important;
+  border: 1px solid var(--bfq-border-color) !important;
+}
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active,
 .bearsfaq-tabs .nav.nav-tabs .nav-item.show .nav-link {
   background-color: var(--bfq-active-tab-color);
@@ -95,6 +150,43 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06) inset;
   position: relative;
   z-index: 3;
+}
+
+/* For vertical layout active tabs, replace box-shadow with padding and add full border */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-link.active,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-tabs .nav-item.show .nav-link {
+  box-shadow: none !important;
+  padding-top: calc(8px + 2px + 6px) !important; /* original padding + border + shadow equivalent */
+  padding-bottom: calc(8px + 2px + 6px) !important;
+  border: 1px solid var(--bfq-border-color) !important;
+}
+
+/* For vertical layout pills, replace box-shadow with padding and add full border */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-link {
+  box-shadow: none !important;
+  padding-top: calc(2px + 1px + 2px) !important; /* original padding + border + shadow equivalent */
+  padding-bottom: calc(2px + 1px + 2px) !important;
+  border: 1px solid var(--bfq-border-color) !important;
+}
+
+/* For vertical layout active pills, replace box-shadow with padding and add full border */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-link.active,
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-pills .nav-item.show .nav-link {
+  box-shadow: none !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  border: 1px solid var(--bfq-border-color) !important;
+}
+
+/* Override template's white text color for active pills - make same as inactive */
+.bearsfaq-tabs .nav.nav-pills .nav-link.active,
+.bearsfaq-tabs .nav.nav-pills .nav-item.show .nav-link {
+  color: inherit !important;
+}
+
+/* Lighten inactive pill text color to 25% */
+.bearsfaq-tabs .nav.nav-pills .nav-link:not(.active) {
+  opacity: 0.65;
 }
 
 /* Inactive 4px shorter than active; offset inactive down by 1px */
@@ -146,8 +238,8 @@
   border-right-color: var(--bfq-border-color) !important;
   border-bottom: none !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06) inset;
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
+  padding-top: 4px !important; /* reduced by 50% from 8px */
+  padding-bottom: 4px !important; /* reduced by 50% from 8px */
   padding-left: 1rem;
   padding-right: 1rem;
   margin-top: 0 !important;
