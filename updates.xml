@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-  <update>
-    <name>mod_bearsfaq</name>
-    <description />
-    <element>mod_bearsfaq</element>
-    <type />
-    <version>2025.08.26.2</version>
-    <infourl />
-    <downloads>
-      <downloadurl type="full" format="zip">https://github.com/N6REJ/mod_bearsfaq/releases/download/2025.08.26.2/mod_bearsfaq_2025.08.26.2.zip</downloadurl>
-    </downloads>
-  </update>
+    <update>
+        <name>mod_bearsfaq</name>
+        <description />
+        <element>mod_bearsfaq</element>
+        <type />
+        <version>2025.08.26.2</version>
+        <infourl />
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/N6REJ/mod_bearsfaq/releases/download/2025.08.26.2/mod_bearsfaq_2025.08.26.2.zip</downloadurl>
+        </downloads>
+    </update>
 </updates>
