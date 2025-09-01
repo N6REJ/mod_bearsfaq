@@ -2,8 +2,8 @@
 <extension type="module" version="5.0" client="site" method="upgrade">
     <name>Bears FAQ</name>
     <author>N6REJ</author>
-    <creationDate>2025 July 20</creationDate>
-    <copyright>Copyright (C)2025 N6REJ</copyright>
+    <creationDate>2025 September 01</creationDate>
+    <copyright>Copyright (C) 2025 N6REJ</copyright>
     <license>GNU General Public License version 3 or later; see LICENSE</license>
     <authorEmail>troy@hallhome.us</authorEmail>
     <authorUrl>https://hallhome.us</authorUrl>
