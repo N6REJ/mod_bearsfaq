@@ -16,8 +16,8 @@
         <folder>language</folder>
     </files>
     <languages>
-        <language tag="en-GB">language/en-GB/mod_bearsfaq.ini</language>
-        <language tag="en-GB">language/en-GB/mod_bearsfaq.sys.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_bearsfaq.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_bearsfaq.sys.ini</language>
     </languages>
     <config>
         <fields name="params">
