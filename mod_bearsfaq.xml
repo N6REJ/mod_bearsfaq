@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="5.0" client="site" method="upgrade">
+    <name>Bears FAQ</name>
+    <author>N6REJ</author>
+    <creationDate>2025 July 20</creationDate>
+    <copyright>Copyright (C)2025 N6REJ</copyright>
+    <license>GNU General Public License version 3 or later; see LICENSE</license>
+    <authorEmail>troy@hallhome.us</authorEmail>
+    <authorUrl>https://hallhome.us</authorUrl>
+    <description>Displays FAQ articles grouped as tabs and accordions based on tags</description>
+    <files>
+        <filename module="mod_bearsfaq">mod_bearsfaq.php</filename>
+        <filename>mod_bearsfaq.xml</filename>
+        <filename>LICENSE</filename>
+        <filename>index.html</filename>
+        <folder>language</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/mod_bearsfaq.ini</language>
+        <language tag="en-GB">language/en-GB/mod_bearsfaq.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="faq_category_id"
+                    type="category"
+                    extension="com_content"
+                    label="MOD_BEARSFAQ_FIELD_FAQ_CATEGORY_LABEL"
+                    description="MOD_BEARSFAQ_FIELD_FAQ_CATEGORY_DESC"
+                    required="true"
+                />
+                <field name="max_articles" type="number" label="MOD_BEARSFAQ_FIELD_MAX_ARTICLES_LABEL"
+                       description="MOD_BEARSFAQ_FIELD_MAX_ARTICLES_DESC" default="100" min="1" max="500"/>
+            </fieldset>
+            <fieldset name="advanced">
+                <field
+                    name="moduleclass_sfx"
+                    type="text"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+
+                <field
+                    name="cache"
+                    type="list"
+                    default="1"
+                    label="COM_MODULES_FIELD_CACHING_LABEL"
+                    description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option
+                        value="1">JGLOBAL_USE_GLOBAL
+                    </option>
+                    <option
+                        value="0">COM_MODULES_FIELD_VALUE_NOCACHING
+                    </option>
+                </field>
+
+                <field
+                    name="cache_time"
+                    type="text"
+                    default="900"
+                    label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                    description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+                <field
+                    name="cachemode"
+                    type="hidden"
+                    default="static">
+                    <option
+                        value="static">
+                    </option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+    <updateservers>
+        <server type="extension" priority="1" name="Bears FAQ Updates">https://raw.githubusercontent.com/N6REJ/mod_bearsfaq/main/updates.xml</server>
+    </updateservers>
+</extension>
