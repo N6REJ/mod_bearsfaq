@@ -5,11 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2025.09.02] - 2025-09-02
+## [2025.09.02.1] - 2025-09-02
 
 ### Added
 
-* Add configurable tab styles and article links to mod_bearsfaq ([689f296](https://github.com/N6REJ/mod_bearsfaq/commit/689f296))
 * Add CSS styling system with configurable colors and media folder support ([4a9a674](https://github.com/N6REJ/mod_bearsfaq/commit/4a9a674))
 * Add comprehensive language file exclusions to gitignore ([14481a7](https://github.com/N6REJ/mod_bearsfaq/commit/14481a7))
 * Add configurable tab alignment, border radius, and gap spacing options ([e68376f](https://github.com/N6REJ/mod_bearsfaq/commit/e68376f))
@@ -20,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add comprehensive README documentation with installation, configuration, and accessibility guides ([61c5ba1](https://github.com/N6REJ/mod_bearsfaq/commit/61c5ba1))
 * Add configurable active tab underline color styling option ([3921fc9](https://github.com/N6REJ/mod_bearsfaq/commit/3921fc9))
 * Add list-style navigation option with bullet points and arrow indicators ([2332d66](https://github.com/N6REJ/mod_bearsfaq/commit/2332d66))
+* Add XML description language constant for module metadata ([abdb4aa](https://github.com/N6REJ/mod_bearsfaq/commit/abdb4aa))
 
 ### Changed
 
@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improve tab font styling and fix accordion header spacing ([3b74216](https://github.com/N6REJ/mod_bearsfaq/commit/3b74216))
 * Internationalize XML configuration with language constants and reorganize field structure ([d82d424](https://github.com/N6REJ/mod_bearsfaq/commit/d82d424))
 * Optimize list navigation styling for horizontal and vertical layouts ([ff55fb0](https://github.com/N6REJ/mod_bearsfaq/commit/ff55fb0))
+* Update version to  [skip ci] ([65c01b8](https://github.com/N6REJ/mod_bearsfaq/commit/65c01b8))
+* Merge remote-tracking branch 'origin/main' ([9b9d7fb](https://github.com/N6REJ/mod_bearsfaq/commit/9b9d7fb))
 
 ### Removed
 
