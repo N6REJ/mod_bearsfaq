@@ -39,30 +39,36 @@
   margin-bottom: 1rem;
 }
 
-/* List style - with bullet points for vertical layouts */
+/* List style - basic Bootstrap nav for horizontal, custom bullets for vertical */
 .bearsfaq-tabs .nav.nav-list {
   list-style: none;
   padding-left: 0;
   background-color: transparent !important;
 }
 
-.bearsfaq-tabs .nav.nav-list .nav-item {
+/* Horizontal list style - simple Bootstrap navbar */
+.bearsfaq-tabs:not(.bearsfaq-vertical) .nav.nav-list .nav-item {
+  margin-bottom: 0;
+}
+
+/* Vertical list style - with bullet points and arrow */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-item {
   list-style-type: disc;
   margin-left: 1.25rem;
   margin-bottom: 0.75rem;
   position: relative;
 }
 
-/* Active state - add arrow after the item */
-.bearsfaq-tabs .nav.nav-list .nav-item:has(.nav-link.active) {
+/* Active state for vertical - add arrow after the item */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-item:has(.nav-link.active) {
   list-style-type: none;
   margin-left: 0;
   padding-left: 1.25rem;
   padding-right: 2rem; /* Make room for arrow */
 }
 
-/* Arrow indicator after active item - inherits color from parent li.text-primary */
-.bearsfaq-tabs .nav.nav-list .nav-item:has(.nav-link.active)::after {
+/* Arrow indicator after active item in vertical mode - inherits color from parent li.text-primary */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-item:has(.nav-link.active)::after {
   content: '\2192'; /* Right arrow Unicode character */
   position: absolute;
   right: 0;
@@ -75,7 +81,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 4px 6px;
-  font-size: 1.75em;
+  font-size: 1.5em;
 }
 
 .bearsfaq-tabs .nav.nav-list .nav-link {
@@ -89,7 +95,8 @@
   color: inherit;
 }
 
-.bearsfaq-tabs .nav.nav-list .nav-link:hover {
+/* Hover effect only for vertical list */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-link:hover {
   transform: translateX(4px);
 }
 
@@ -116,15 +123,15 @@
 
 /* For browsers that don't support :has(), fallback to showing arrow after active link */
 @supports not selector(:has(*)) {
-  .bearsfaq-tabs .nav.nav-list .nav-item {
+  .bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-item {
     padding-right: 2rem; /* Make room for potential arrow */
   }
   
-  .bearsfaq-tabs .nav.nav-list .nav-link.active {
+  .bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-link.active {
     position: relative;
   }
   
-  .bearsfaq-tabs .nav.nav-list .nav-link.active::after {
+  .bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-link.active::after {
     content: '\2192'; /* Right arrow Unicode character */
     position: absolute;
     right: -1.5rem;
