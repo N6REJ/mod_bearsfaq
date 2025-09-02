@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="5.0" client="site" method="upgrade">
-    <name>Bears FAQ</name>
+    <name>MOD_BEARSFAQ</name>
     <author>N6REJ</author>
     <creationDate>2025 September 01</creationDate>
     <copyright>Copyright (C) 2025 N6REJ</copyright>
     <license>GNU General Public License version 3 or later; see LICENSE</license>
     <authorEmail>troy@hallhome.us</authorEmail>
     <authorUrl>https://hallhome.us</authorUrl>
-    <description>Displays FAQ articles grouped as tabs and accordions based on tags</description>
+    <description>MOD_BEARSFAQ_XML_DESCRIPTION</description>
     <files>
         <filename module="mod_bearsfaq">mod_bearsfaq.php</filename>
         <filename>mod_bearsfaq.xml</filename>
@@ -57,6 +57,22 @@
                   <option value="horizontal">MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_OPTION_HORIZONTAL</option>
                   <option value="vertical">MOD_BEARSFAQ_FIELD_TAB_ORIENTATION_OPTION_VERTICAL</option>
                 </field>
+                <field
+                        name="tab_alignment"
+                        type="list"
+                        label="MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_LABEL"
+                        description="MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_DESC"
+                        default="flex-start"
+                >
+                    <option value="flex-start">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_LEFT</option>
+                    <option value="flex-end">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_RIGHT</option>
+                    <option value="center">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_CENTER</option>
+                    <option value="space-between">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_SPACE_BETWEEN</option>
+                    <option value="space-around">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_SPACE_AROUND</option>
+                    <option value="stretch">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_JUSTIFIED</option>
+                    <option value="equal-width">MOD_BEARSFAQ_FIELD_TAB_ALIGNMENT_OPTION_EQUAL_WIDTH</option>
+                </field>
+                <field name="tab_gap" type="number" label="MOD_BEARSFAQ_FIELD_TAB_GAP_LABEL" description="MOD_BEARSFAQ_FIELD_TAB_GAP_DESC" default="2" min="0" max="64" />
             </fieldset>
             <fieldset name="advanced">
                 <field
@@ -94,30 +110,14 @@
                     </option>
                 </field>
             </fieldset>
-            <fieldset name="styling" label="Styling">
-                <field name="active_tab_color" type="color" label="Active Tab Background Color" description="Background color applied to the active tab" default="" />
-                <field name="active_underline_color" type="color" label="Active Tab Underline Color (RGBA)" description="Color for the active tab underline bar. Supports RGBA format (e.g., rgba(0, 123, 255, 1)). Leave empty to use template default colors." default="" />
-                <field name="inactive_tab_color" type="color" label="Inactive Tab Background Color" description="Background color applied to inactive tabs" default="" />
-                <field name="tab_font_color" type="color" label="Tab Font Color" description="Text color for all tabs and pills" default="" />
-                <field name="question_color" type="color" label="Question Color" description="Color of question links in the accordion" default="" />
-                <field name="border_color" type="color" label="Border Color" description="Color for tab borders (left, top, right)" default="" />
-                <field name="border_radius" type="number" label="Border Radius (px)" description="Top border radius for tabs in pixels" default="8" min="0" max="50" />
-                <field name="tab_gap" type="number" label="Tab Gap (px)" description="Gap between tabs in pixels" default="2" min="0" max="20" />
-                <field
-                  name="tab_alignment"
-                  type="list"
-                  label="Tab Alignment"
-                  description="How tabs are aligned within the container"
-                  default="flex-start"
-                >
-                  <option value="flex-start">Left</option>
-                  <option value="flex-end">Right</option>
-                  <option value="center">Centered</option>
-                  <option value="space-between">Space Between</option>
-                  <option value="space-around">Space Around</option>
-                  <option value="stretch">Justified</option>
-                  <option value="equal-width">Equal Width</option>
-                </field>
+            <fieldset name="styling" label="MOD_BEARSFAQ_FIELDSET_STYLING_LABEL">
+                <field name="active_tab_color" type="color" label="MOD_BEARSFAQ_FIELD_ACTIVE_TAB_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_ACTIVE_TAB_COLOR_DESC" default="" />
+                <field name="active_underline_color" type="color" label="MOD_BEARSFAQ_FIELD_ACTIVE_UNDERLINE_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_ACTIVE_UNDERLINE_COLOR_DESC" default="" />
+                <field name="inactive_tab_color" type="color" label="MOD_BEARSFAQ_FIELD_INACTIVE_TAB_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_INACTIVE_TAB_COLOR_DESC" default="" />
+                <field name="tab_font_color" type="color" label="MOD_BEARSFAQ_FIELD_TAB_FONT_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_TAB_FONT_COLOR_DESC" default="" />
+                <field name="question_color" type="color" label="MOD_BEARSFAQ_FIELD_QUESTION_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_QUESTION_COLOR_DESC" default="" />
+                <field name="border_color" type="color" label="MOD_BEARSFAQ_FIELD_BORDER_COLOR_LABEL" description="MOD_BEARSFAQ_FIELD_BORDER_COLOR_DESC" default="" />
+                <field name="border_radius" type="number" label="MOD_BEARSFAQ_FIELD_BORDER_RADIUS_LABEL" description="MOD_BEARSFAQ_FIELD_BORDER_RADIUS_DESC" default="8" min="0" max="50" />
             </fieldset>
         </fields>
     </config>
