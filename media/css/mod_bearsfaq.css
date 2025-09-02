@@ -26,6 +26,7 @@
   --bfq-question-color: inherit;   /* default uses template link/text color */
   --bfq-border-color: rgba(0,0,0,0.275); /* lightened 50% */
   --bfq-active-underline-height: 2px; /* height of the active underline (::after) */
+  --bfq-active-underline-color: var(--bs-primary, currentColor); /* color of the active underline - defaults to template primary color */
   --bfq-border-radius: 8px; /* default border radius */
   --bfq-tab-gap: 2px; /* default gap between tabs */
   --bfq-tab-alignment: flex-start; /* default tab alignment */
@@ -237,11 +238,16 @@
   margin-top: 0 !important;
   line-height: 1.2 !important;
 }
+/* Active tab underline bar */
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
   z-index: 4 !important;
   left: -1px !important;
   right: -1px !important;
   bottom: 0px !important;
+  height: var(--bfq-active-underline-height);
+  background-color: var(--bfq-active-underline-color);
 }
 
 /* Equivalent treatment for pills - horizontal layout with zoom scaling */

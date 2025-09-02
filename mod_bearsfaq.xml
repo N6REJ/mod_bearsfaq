@@ -96,6 +96,7 @@
             </fieldset>
             <fieldset name="styling" label="Styling">
                 <field name="active_tab_color" type="color" label="Active Tab Background Color" description="Background color applied to the active tab" default="" />
+                <field name="active_underline_color" type="color" label="Active Tab Underline Color (RGBA)" description="Color for the active tab underline bar. Supports RGBA format (e.g., rgba(0, 123, 255, 1)). Leave empty to use template default colors." default="" />
                 <field name="inactive_tab_color" type="color" label="Inactive Tab Background Color" description="Background color applied to inactive tabs" default="" />
                 <field name="tab_font_color" type="color" label="Tab Font Color" description="Text color for all tabs and pills" default="" />
                 <field name="question_color" type="color" label="Question Color" description="Color of question links in the accordion" default="" />
