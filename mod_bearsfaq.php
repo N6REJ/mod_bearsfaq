@@ -95,6 +95,7 @@ foreach ($articles as $article) {
         if (!isset($faqTabs[$tag->alias])) {
             $faqTabs[$tag->alias] = [
                 'title' => $tag->title,
+                'tag_id' => (int) $tag->id,
                 'articles' => []
             ];
         }
@@ -183,7 +184,8 @@ foreach ($faqTabs as $tabId => $tabInfo) {
     // Add text-primary class to active list items when using list style
     $itemClass = ($tabStyle === 'list' && $active) ? ' text-primary' : '';
     echo '<li class="nav-item' . $itemClass . '" role="presentation">';
-    echo '<button class="nav-link ' . $active . '" id="' . $moduleId . '-' . $tabId . '-tab" data-bs-toggle="tab" data-bs-target="#' . $moduleId . '-' . $tabId . '" type="button" role="tab" aria-controls="' . $moduleId . '-' . $tabId . '" aria-selected="' . ($active ? 'true' : 'false') . '" tabindex="' . $tabIndex . '" aria-describedby="' . $moduleId . '-' . $tabId . '-desc">' . htmlspecialchars($tabInfo['title']) . '</button>';
+    echo '<a class="nav-link ' . $active . '" id="' . $moduleId . '-' . $tabId . '-tab" data-bs-toggle="tab" data-bs-target="#' . $moduleId . '-' . $tabId . '" href="' . (isset($tabInfo['tag_id']) ? Route::_('index.php?option=com_tags&view=tag&id=' . (int) $tabInfo['tag_id']) : '#') . '" role="tab" aria-controls="' . $moduleId . '-' . $tabId . '" aria-selected="' . ($active ? 'true' : 'false') . '" tabindex="' . $tabIndex . '" aria-describedby="' . $moduleId . '-' . $tabId . '-desc">' . htmlspecialchars($tabInfo['title']) . '</a>';
+
     echo '</li>';
     $i++;
 }
@@ -210,10 +212,9 @@ foreach ($faqTabs as $tabId => $tabInfo) {
         // Use data-bs-parent attribute to ensure only one is open per accordion/tab
         $link = Route::_(ContentHelperRoute::getArticleRoute($faq->id . ':' . $faq->alias, $faq->catid));
         echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' . $collapseId . '" aria-expanded="false" aria-controls="' . $collapseId . '" aria-describedby="' . $headingId . '-hint">';
-        echo '<span class="accordion-question">' . htmlspecialchars($faq->title) . '</span>';
+        echo '<a href="' . $link . '" class="accordion-question accordion-question-link">' . htmlspecialchars($faq->title) . '</a>';
         echo '<span id="' . $headingId . '-hint" class="sr-only">Press Enter or Space to expand answer</span>';
         echo '</button>';
-        echo '<a href="' . $link . '" class="sr-only sr-only-focusable" aria-label="Read full article: ' . htmlspecialchars($faq->title) . '">Read full article</a>';
         echo '</h3>';
         echo '<div id="' . $collapseId . '" class="accordion-collapse collapse" aria-labelledby="' . $headingId . '" data-bs-parent="#' . $accordId . '" role="region">';
         echo '<div class="accordion-body" role="article" aria-label="Answer to: ' . htmlspecialchars($faq->title) . '">' . $answerHTML . '</div>';

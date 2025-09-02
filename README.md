@@ -283,28 +283,6 @@ This module is licensed under the GNU General Public License v3.0. See [LICENSE]
 - Issues: https://github.com/N6REJ/mod_bearsfaq/issues
 - Community: Joomla community forums
 
-## Changelog
-
-### Version 1.1.0
-- Added "List" navigation style
-  - Vertical: bullets for inactive items, text-primary for active, Unicode arrow (→) indicator
-  - Horizontal: simplified Bootstrap navbar presentation (no arrow/hover transform)
-- Active underline bar for tabs/pills now configurable:
-  - Height via --bfq-active-underline-height
-  - Color via --bfq-active-underline-color (supports RGBA)
-- JavaScript enhancement: dynamically toggles text-primary on active list item when switching tabs (click and shown.bs.tab)
-- Scoped CSS selectors so arrow/spacing apply only in vertical list mode; horizontal list remains clean
-- Removed unused j51icons font-face and related arrow fallback
-
-### Version 1.0.0
-- Initial release
-- Tag-based FAQ organization
-- Bootstrap 5 integration
-- Full accessibility support
-- Customizable styling options
-- Horizontal and vertical layouts
-- Tab and pill navigation styles
-
 ## Credits
 
 - Author: N6REJ

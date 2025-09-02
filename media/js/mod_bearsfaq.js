@@ -115,6 +115,28 @@ function initializeFAQAccessibility(module) {
         });
     });
     
+    // Make question text a link target but keep left-click for toggling
+    const questionLinks = module.querySelectorAll('.accordion-question-link');
+    questionLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            const isLeftClick = e.button === 0;
+            const hasModifier = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+            if (isLeftClick && !hasModifier) {
+                e.preventDefault(); // prevent navigation on simple left-click
+                // let event bubble to button to toggle
+            }
+        });
+        link.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const button = link.closest('.accordion-button');
+                if (button) {
+                    button.click();
+                }
+            }
+        });
+    });
+    
     // Add live region for announcements
     if (!document.getElementById('bearsfaq-announcements')) {
         const liveRegion = document.createElement('div');
