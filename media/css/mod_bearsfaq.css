@@ -21,6 +21,8 @@
   /* You can override these CSS variables from your template/module params */
   --bfq-accent: var(--bs-primary);
   --bfq-active-tab-color: inherit; /* default uses template text color */
+  --bfq-inactive-tab-color: transparent; /* default transparent background for inactive tabs */
+  --bfq-tab-font-color: inherit; /* default uses template text color */
   --bfq-question-color: inherit;   /* default uses template link/text color */
   --bfq-border-color: rgba(0,0,0,0.275); /* lightened 50% */
   --bfq-active-underline-height: 2px; /* height of the active underline (::after) */
@@ -107,10 +109,13 @@
   cursor: pointer;
   font-size: 1.125rem !important; /* 18px at default browser settings */
   font-weight: 500 !important;
+  color: var(--bfq-tab-font-color) !important; /* configurable tab font color */
+  background-color: var(--bfq-inactive-tab-color) !important; /* configurable inactive tab background */
 }
 
 .bearsfaq-tabs .nav-link.active {
   font-weight: 600;
+  background-color: var(--bfq-active-tab-color) !important; /* override inactive background for active tabs */
 }
 
 /* Configurable top radius for tabs (increase specificity and cover active/show states) */
