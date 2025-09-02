@@ -108,9 +108,13 @@
 .bearsfaq-tabs .nav-link {
   cursor: pointer;
   font-size: 1.125rem !important; /* 18px at default browser settings */
-  font-weight: 500 !important;
-  color: var(--bfq-tab-font-color) !important; /* configurable tab font color */
+  font-weight: 400 !important; /* Normal weight - non-bold */
   background-color: var(--bfq-inactive-tab-color) !important; /* configurable inactive tab background */
+}
+
+/* Only apply tab font color if explicitly set via CSS variable */
+.bearsfaq-tabs[style*="--bfq-tab-font-color"] .nav-link {
+  color: var(--bfq-tab-font-color) !important;
 }
 
 .bearsfaq-tabs .nav-link.active {
@@ -294,6 +298,11 @@
 /* Optional: accent border for open item */
 .bearsfaq-tabs .accordion .accordion-collapse.show {
   border-left: 3px solid var(--bfq-accent);
+}
+
+/* Remove bottom margin from accordion headers */
+.bearsfaq-tabs .accordion h3.accordion-header {
+  margin-bottom: 0 !important;
 }
 
 /* Accessibility enhancements */
