@@ -70,6 +70,21 @@ function initializeFAQAccessibility(module) {
             // Set tabindex and aria-selected for active tab
             tab.setAttribute('tabindex', '0');
             tab.setAttribute('aria-selected', 'true');
+            
+            // Handle text-primary class for list style
+            const navList = tab.closest('.nav-list');
+            if (navList) {
+                // Remove text-primary from all list items
+                navList.querySelectorAll('.nav-item').forEach(function(item) {
+                    item.classList.remove('text-primary');
+                });
+                
+                // Add text-primary to active tab's parent li
+                const activeItem = tab.closest('.nav-item');
+                if (activeItem) {
+                    activeItem.classList.add('text-primary');
+                }
+            }
         });
     });
     
@@ -133,6 +148,21 @@ document.addEventListener('shown.bs.tab', function(e) {
         // Announce the tab change
         const tabName = e.target.textContent.trim();
         announceToScreenReader(`Switched to ${tabName} tab`);
+    }
+    
+    // Handle text-primary class for list style tabs
+    const navList = e.target.closest('.nav-list');
+    if (navList) {
+        // Remove text-primary from all list items
+        navList.querySelectorAll('.nav-item').forEach(function(item) {
+            item.classList.remove('text-primary');
+        });
+        
+        // Add text-primary to active tab's parent li
+        const activeItem = e.target.closest('.nav-item');
+        if (activeItem) {
+            activeItem.classList.add('text-primary');
+        }
     }
 });
 

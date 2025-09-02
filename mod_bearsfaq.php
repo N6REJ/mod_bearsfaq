@@ -115,7 +115,7 @@ uasort($faqTabs, function($a, $b) {
 $moduleId = 'bearsfaq_' . (isset($module->id) ? (int)$module->id : uniqid());
 
 // Tabs style/orientation parameters
-$tabStyle = $params->get('tab_style', 'tabs'); // 'tabs' or 'pills'
+$tabStyle = $params->get('tab_style', 'tabs'); // 'tabs', 'pills', or 'list'
 $tabOrientation = $params->get('tab_orientation', 'horizontal'); // 'horizontal' or 'vertical'
 
 // Styling params as CSS variables
@@ -159,7 +159,14 @@ if ($tabOrientation === 'vertical') {
 echo '<div id="' . $moduleId . '" class="bearsfaq-tabs' . $alignmentClass . $orientationClass . '"' . $styleAttr . '>';
 
 // Compose Bootstrap classes
-$tabClass  = ($tabStyle === 'pills') ? 'nav-pills' : 'nav-tabs';
+if ($tabStyle === 'list') {
+    $tabClass = 'nav-list'; // Custom class for list style
+} elseif ($tabStyle === 'pills') {
+    $tabClass = 'nav-pills';
+} else {
+    $tabClass = 'nav-tabs';
+}
+
 if ($tabOrientation === 'vertical') {
     // For vertical, use Bootstrap's flex-column
     $tabClass .= ' flex-column';
@@ -173,7 +180,9 @@ $i = 0;
 foreach ($faqTabs as $tabId => $tabInfo) {
     $active = $i === 0 ? 'active' : '';
     $tabIndex = $active ? '0' : '-1'; // Only active tab is focusable initially
-    echo '<li class="nav-item" role="presentation">';
+    // Add text-primary class to active list items when using list style
+    $itemClass = ($tabStyle === 'list' && $active) ? ' text-primary' : '';
+    echo '<li class="nav-item' . $itemClass . '" role="presentation">';
     echo '<button class="nav-link ' . $active . '" id="' . $moduleId . '-' . $tabId . '-tab" data-bs-toggle="tab" data-bs-target="#' . $moduleId . '-' . $tabId . '" type="button" role="tab" aria-controls="' . $moduleId . '-' . $tabId . '" aria-selected="' . ($active ? 'true' : 'false') . '" tabindex="' . $tabIndex . '" aria-describedby="' . $moduleId . '-' . $tabId . '-desc">' . htmlspecialchars($tabInfo['title']) . '</button>';
     echo '</li>';
     $i++;

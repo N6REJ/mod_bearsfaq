@@ -32,10 +32,125 @@
   --bfq-tab-alignment: flex-start; /* default tab alignment */
 }
 
-/* Tabs/Pills spacing and interactions */
+/* Tabs/Pills/List spacing and interactions */
 .bearsfaq-tabs .nav-tabs,
-.bearsfaq-tabs .nav-pills {
+.bearsfaq-tabs .nav-pills,
+.bearsfaq-tabs .nav-list {
   margin-bottom: 1rem;
+}
+
+/* List style - with bullet points for vertical layouts */
+.bearsfaq-tabs .nav.nav-list {
+  list-style: none;
+  padding-left: 0;
+  background-color: transparent !important;
+}
+
+.bearsfaq-tabs .nav.nav-list .nav-item {
+  list-style-type: disc;
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+/* Active state - add arrow after the item */
+.bearsfaq-tabs .nav.nav-list .nav-item:has(.nav-link.active) {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 1.25rem;
+  padding-right: 2rem; /* Make room for arrow */
+}
+
+/* Arrow indicator after active item - inherits color from parent li.text-primary */
+.bearsfaq-tabs .nav.nav-list .nav-item:has(.nav-link.active)::after {
+  content: '\2192'; /* Right arrow Unicode character */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 4px 6px;
+  font-size: 1.75em;
+}
+
+/* If j51icons font is available, use the arrow icon */
+@font-face {
+  font-family: 'j51icons';
+  src: local('j51icons');
+}
+
+.bearsfaq-tabs .nav.nav-list .nav-item:has(.nav-link.active).j51-arrow::after {
+  font-family: "j51icons";
+  content: "\0045"; /* j51icons arrow character */
+}
+
+.bearsfaq-tabs .nav.nav-list .nav-link {
+  display: inline-block;
+  padding: 0.375rem 0.75rem !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  color: inherit;
+}
+
+.bearsfaq-tabs .nav.nav-list .nav-link:hover {
+  transform: translateX(4px);
+}
+
+/* Active link inherits color from parent li.text-primary */
+.bearsfaq-tabs .nav.nav-list .nav-link.active {
+  font-weight: 600 !important;
+  background-color: transparent !important;
+}
+
+/* For vertical list layout, ensure proper alignment */
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list {
+  width: auto;
+  min-width: 200px;
+}
+
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-item {
+  width: 100%;
+}
+
+.bearsfaq-tabs.bearsfaq-vertical .nav.nav-list .nav-link {
+  width: auto;
+  display: inline-block;
+}
+
+/* For browsers that don't support :has(), fallback to showing arrow after active link */
+@supports not selector(:has(*)) {
+  .bearsfaq-tabs .nav.nav-list .nav-item {
+    padding-right: 2rem; /* Make room for potential arrow */
+  }
+  
+  .bearsfaq-tabs .nav.nav-list .nav-link.active {
+    position: relative;
+  }
+  
+  .bearsfaq-tabs .nav.nav-list .nav-link.active::after {
+    content: '\2192'; /* Right arrow Unicode character */
+    position: absolute;
+    right: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--bs-link-color, #0d6efd);
+    background-color: transparent;
+    padding: 4px 6px;
+    font-size: 1.5em;
+    border-radius: 3px;
+  }
 }
 
 /* Vertical layout: side-by-side navbar and content */
