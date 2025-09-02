@@ -65,6 +65,9 @@
 .bearsfaq-tabs .nav {
   display: flex; /* enforce flex layout for gap to work reliably */
   gap: var(--bfq-tab-gap);
+  background-color: rgba(0, 0, 0, 0.02); /* 50% lighter background */
+  border-top-left-radius: var(--bfq-border-radius); /* match first tab */
+  border-top-right-radius: var(--bfq-border-radius); /* match last tab */
 }
 /* Only apply justify-content for horizontal layouts */
 .bearsfaq-tabs .nav:not(.flex-column) {
@@ -102,6 +105,8 @@
 
 .bearsfaq-tabs .nav-link {
   cursor: pointer;
+  font-size: 1.125rem !important; /* 18px at default browser settings */
+  font-weight: 500 !important;
 }
 
 .bearsfaq-tabs .nav-link.active {
@@ -207,19 +212,19 @@
 
 /* Inactive 4px shorter than active; offset up 1px, extra bottom padding */
 .bearsfaq-tabs .nav.nav-tabs .nav-link {
-  padding-top: 2px !important;
-  padding-bottom: 3px !important; /* increased by 1px */
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-top: calc(2px + 4px) !important; /* increased by 4px */
+  padding-bottom: calc(3px + 4px) !important; /* increased by 4px (was +1px, now +5px total) */
+  padding-left: calc(1rem + 4px) !important; /* increased by 4px */
+  padding-right: calc(1rem + 4px) !important; /* increased by 4px */
   margin-top: calc(9px - var(--bfq-active-underline-height) - 1px) !important; /* moved up 1px */
   line-height: 1.2 !important;
 }
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active,
 .bearsfaq-tabs .nav.nav-tabs .nav-item.show .nav-link {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-top: calc(8px + 4px) !important; /* increased by 4px */
+  padding-bottom: calc(8px + 4px + 2px) !important; /* increased by 4px + 2px more */
+  padding-left: calc(1rem + 4px) !important; /* increased by 4px */
+  padding-right: calc(1rem + 4px) !important; /* increased by 4px */
   margin-top: 0 !important;
   line-height: 1.2 !important;
 }
@@ -274,6 +279,7 @@
 
 .bearsfaq-tabs .accordion .accordion-button:not(.collapsed) {
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+  background-color: var(--bs-accordion-active-bg, #e7eaee) !important; /* use default template color */
 }
 
 .bearsfaq-tabs .accordion .accordion-body {
