@@ -27,6 +27,14 @@ $cssPath   = file_exists(JPATH_ROOT . '/' . $mediaCss)
     : (file_exists(JPATH_ROOT . '/' . $moduleCss) ? $moduleCss : $mediaCss);
 $wa->registerAndUseStyle('mod_bearsfaq.styles', $cssPath);
 
+// Load accessibility JavaScript
+$mediaJs  = 'media/mod_bearsfaq/js/mod_bearsfaq.js';
+$moduleJs = 'modules/mod_bearsfaq/media/js/mod_bearsfaq.js';
+$jsPath   = file_exists(JPATH_ROOT . '/' . $mediaJs)
+    ? $mediaJs
+    : (file_exists(JPATH_ROOT . '/' . $moduleJs) ? $moduleJs : $mediaJs);
+$wa->registerAndUseScript('mod_bearsfaq.accessibility', $jsPath, [], ['defer' => true]);
+
 // Get database
 $db    = Factory::getDbo();
 $app   = Factory::getApplication();
@@ -157,13 +165,14 @@ if ($tabOrientation === 'vertical') {
     $tabClass .= ' flex-row';
 }
 
-// Tabs header
-echo '<ul class="nav ' . $tabClass . ' mb-3" id="' . $moduleId . '-tab" role="tablist">';
+// Tabs header with enhanced accessibility
+echo '<ul class="nav ' . $tabClass . ' mb-3" id="' . $moduleId . '-tab" role="tablist" aria-label="FAQ Categories">';
 $i = 0;
 foreach ($faqTabs as $tabId => $tabInfo) {
     $active = $i === 0 ? 'active' : '';
+    $tabIndex = $active ? '0' : '-1'; // Only active tab is focusable initially
     echo '<li class="nav-item" role="presentation">';
-    echo '<button class="nav-link ' . $active . '" id="' . $moduleId . '-' . $tabId . '-tab" data-bs-toggle="tab" data-bs-target="#' . $moduleId . '-' . $tabId . '" type="button" role="tab" aria-controls="' . $moduleId . '-' . $tabId . '" aria-selected="' . ($active ? 'true' : 'false') . '">' . htmlspecialchars($tabInfo['title']) . '</button>';
+    echo '<button class="nav-link ' . $active . '" id="' . $moduleId . '-' . $tabId . '-tab" data-bs-toggle="tab" data-bs-target="#' . $moduleId . '-' . $tabId . '" type="button" role="tab" aria-controls="' . $moduleId . '-' . $tabId . '" aria-selected="' . ($active ? 'true' : 'false') . '" tabindex="' . $tabIndex . '" aria-describedby="' . $moduleId . '-' . $tabId . '-desc">' . htmlspecialchars($tabInfo['title']) . '</button>';
     echo '</li>';
     $i++;
 }
@@ -173,10 +182,12 @@ echo '<div class="tab-content" id="' . $moduleId . '-tabContent">';
 $i = 0;
 foreach ($faqTabs as $tabId => $tabInfo) {
     $active = $i === 0 ? 'show active' : '';
-    echo '<div class="tab-pane fade ' . $active . '" id="' . $moduleId . '-' . $tabId . '" role="tabpanel" aria-labelledby="' . $moduleId . '-' . $tabId . '-tab">';
+    echo '<div class="tab-pane fade ' . $active . '" id="' . $moduleId . '-' . $tabId . '" role="tabpanel" aria-labelledby="' . $moduleId . '-' . $tabId . '-tab" tabindex="0">';
+    // Hidden description for screen readers
+    echo '<div id="' . $moduleId . '-' . $tabId . '-desc" class="sr-only">Frequently asked questions for ' . htmlspecialchars($tabInfo['title']) . ' category. Use arrow keys to navigate between questions and Enter or Space to expand answers.</div>';
     // Accordion for this tab
     $accordId = 'accordion-' . $moduleId . '-' . $tabId;
-    echo '<div class="accordion" id="' . $accordId . '">';
+    echo '<div class="accordion" id="' . $accordId . '" role="region" aria-label="' . htmlspecialchars($tabInfo['title']) . ' FAQ Questions">';
     $q = 0;
     foreach ($tabInfo['articles'] as $faq) {
         $itemId = $accordId . '-item-' . $faq->id;
@@ -184,15 +195,17 @@ foreach ($faqTabs as $tabId => $tabInfo) {
         $headingId = $accordId . '-heading-' . $faq->id;
         $answerHTML = $faq->fulltext ? $faq->fulltext : $faq->introtext;
         echo '<div class="accordion-item">';
-        echo '<h2 class="accordion-header" id="' . $headingId . '">';
+        echo '<h3 class="accordion-header" id="' . $headingId . '">';
         // Use data-bs-parent attribute to ensure only one is open per accordion/tab
         $link = Route::_(ContentHelperRoute::getArticleRoute($faq->id . ':' . $faq->alias, $faq->catid));
-        echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' . $collapseId . '" aria-expanded="false" aria-controls="' . $collapseId . '">';
-        echo '<a href="' . $link . '">' . htmlspecialchars($faq->title) . '</a>';
+        echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' . $collapseId . '" aria-expanded="false" aria-controls="' . $collapseId . '" aria-describedby="' . $headingId . '-hint">';
+        echo '<span class="accordion-question">' . htmlspecialchars($faq->title) . '</span>';
+        echo '<span id="' . $headingId . '-hint" class="sr-only">Press Enter or Space to expand answer</span>';
         echo '</button>';
-        echo '</h2>';
-        echo '<div id="' . $collapseId . '" class="accordion-collapse collapse" aria-labelledby="' . $headingId . '" data-bs-parent="#' . $accordId . '">';
-        echo '<div class="accordion-body">' . $answerHTML . '</div>';
+        echo '<a href="' . $link . '" class="sr-only sr-only-focusable" aria-label="Read full article: ' . htmlspecialchars($faq->title) . '">Read full article</a>';
+        echo '</h3>';
+        echo '<div id="' . $collapseId . '" class="accordion-collapse collapse" aria-labelledby="' . $headingId . '" data-bs-parent="#' . $accordId . '" role="region">';
+        echo '<div class="accordion-body" role="article" aria-label="Answer to: ' . htmlspecialchars($faq->title) . '">' . $answerHTML . '</div>';
         echo '</div>';
         echo '</div>';
         $q++;
