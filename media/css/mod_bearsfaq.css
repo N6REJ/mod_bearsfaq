@@ -4,6 +4,18 @@
  * Add your custom overrides below.
  */
 
+/* Module title styling - center and make H1-like */
+.moduletable h3,
+.moduletable .module-title,
+.module h3,
+.module .module-title {
+  text-align: center !important;
+  font-size: 2rem !important; /* H1-like size */
+  font-weight: 700 !important; /* Bold like H1 */
+  line-height: 1.2 !important;
+  margin-bottom: 1.5rem !important;
+}
+
 /* Container for the module */
 .bearsfaq-tabs {
   /* You can override these CSS variables from your template/module params */
@@ -57,6 +69,10 @@
 /* Only apply justify-content for horizontal layouts */
 .bearsfaq-tabs .nav:not(.flex-column) {
   justify-content: var(--bfq-tab-alignment);
+}
+/* Vertically center pills only (not tabs) in horizontal layout */
+.bearsfaq-tabs .nav.nav-pills:not(.flex-column) {
+  align-items: center;
 }
 /* For vertical layouts, align items instead */
 .bearsfaq-tabs .nav.flex-column {
@@ -189,13 +205,13 @@
   opacity: 0.65;
 }
 
-/* Inactive 4px shorter than active; offset inactive down by 1px */
+/* Inactive 4px shorter than active; offset up 1px, extra bottom padding */
 .bearsfaq-tabs .nav.nav-tabs .nav-link {
   padding-top: 2px !important;
-  padding-bottom: 2px !important;
+  padding-bottom: 3px !important; /* increased by 1px */
   padding-left: 1rem;
   padding-right: 1rem;
-  margin-top: calc(9px - var(--bfq-active-underline-height)) !important;
+  margin-top: calc(9px - var(--bfq-active-underline-height) - 1px) !important; /* moved up 1px */
   line-height: 1.2 !important;
 }
 .bearsfaq-tabs .nav.nav-tabs .nav-link.active,
@@ -214,38 +230,28 @@
   bottom: 0px !important;
 }
 
-/* Equivalent treatment for pills */
+/* Equivalent treatment for pills - horizontal layout with zoom scaling */
 .bearsfaq-tabs .nav.nav-pills .nav-link {
-  border-left: 1px solid var(--bfq-border-color) !important;
-  border-top: 1px solid var(--bfq-border-color) !important;
-  border-right: 1px solid var(--bfq-border-color) !important;
-  border-bottom: none !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06),  0 0 0 1px rgba(0,0,0,0.06) inset;
-  padding-top: 2px !important;
-  padding-bottom: 2px !important;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-top: calc(9px - var(--bfq-active-underline-height)) !important;
+  border: 1px solid var(--bfq-border-color) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.06) inset;
+  padding: 8px 1rem !important; /* consistent padding */
   line-height: 1.2 !important;
   position: relative;
   z-index: 1;
+  zoom: 0.75; /* scale down inactive pills by 25% */
+  transform-origin: bottom center; /* scale from bottom center */
 }
 .bearsfaq-tabs .nav.nav-pills .nav-link.active,
 .bearsfaq-tabs .nav.nav-pills .nav-item.show .nav-link {
   background-color: var(--bfq-active-tab-color);
-  border-left-color: var(--bfq-border-color) !important;
-  border-top-color: var(--bfq-border-color) !important;
-  border-right-color: var(--bfq-border-color) !important;
-  border-bottom: none !important;
+  border: 1px solid var(--bfq-border-color) !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.06) inset;
-  padding-top: 4px !important; /* reduced by 50% from 8px */
-  padding-bottom: 4px !important; /* reduced by 50% from 8px */
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-top: 0 !important;
+  padding: 8px 1rem !important; /* same padding as inactive */
   line-height: 1.2 !important;
   position: relative;
   z-index: 3;
+  zoom: 0.825; /* increased by 10% from 0.75 to 0.825 */
+  transform-origin: bottom center; /* scale from bottom center */
 }
 
 
