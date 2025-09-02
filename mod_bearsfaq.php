@@ -39,21 +39,25 @@ $wa->registerAndUseScript('mod_bearsfaq.accessibility', $jsPath, [], ['defer' =>
 $db    = Factory::getDbo();
 $app   = Factory::getApplication();
 
-// Module params (could be extended)
-$faqCategoryAlias = 'faq';
-$maxArticles      = 100;
+// Module params
+$categoryId  = (int) $params->get('faq_category_id', 0);
+$maxArticles = (int) $params->get('max_articles', 100);
 
-// Find category ID for 'faq'
+// Validate/verify category
+if (!$categoryId) {
+    echo '<div class="alert alert-warning">' . Text::_('MOD_BEARSFAQ_NO_CATEGORY_SELECTED') . '</div>';
+    return;
+}
+
 $query = $db->getQuery(true)
-    ->select($db->qn('id'))
+    ->select('COUNT(*)')
     ->from($db->qn('#__categories'))
-    ->where($db->qn('alias') . ' = ' . $db->q($faqCategoryAlias))
+    ->where('id = ' . (int) $categoryId)
     ->where($db->qn('extension') . ' = "com_content"');
 $db->setQuery($query);
-$categoryId = $db->loadResult();
-
-if (!$categoryId) {
-    echo '<div class="alert alert-warning">FAQ category not found (alias: ' . htmlspecialchars($faqCategoryAlias) . ')</div>';
+$categoryExists = (int) $db->loadResult();
+if (!$categoryExists) {
+    echo '<div class="alert alert-warning">' . Text::_('MOD_BEARSFAQ_NO_CATEGORY_FOUND') . '</div>';
     return;
 }
 
@@ -68,7 +72,7 @@ $db->setQuery($query, 0, $maxArticles);
 $articles = $db->loadObjectList();
 
 if (!$articles) {
-    echo '<div class="alert alert-info">No FAQ articles found in category.</div>';
+    echo '<div class="alert alert-info">' . Text::_('MOD_BEARSFAQ_NO_ARTICLES_FOUND') . '</div>';
     return;
 }
 
