@@ -38,6 +38,8 @@ $wa->registerAndUseScript('mod_bearsfaq.accessibility', $jsPath, [], ['defer' =>
 // Get database
 $db    = Factory::getDbo();
 $app   = Factory::getApplication();
+$user  = Factory::getUser();
+$viewLevels = $user->getAuthorisedViewLevels();
 
 // Module params
 $categoryId  = (int) $params->get('faq_category_id', 0);
@@ -82,7 +84,7 @@ $untaggedKey = '__untagged__';
 foreach ($articles as $article) {
     // Lookup tags for this article
     $query = $db->getQuery(true)
-        ->select('t.title, t.alias, t.id')
+        ->select('t.title, t.alias, t.id, t.access')
         ->from('#__tags AS t')
         ->join('INNER', '#__contentitem_tag_map AS m ON m.tag_id = t.id')
         ->where('m.content_item_id = ' . (int)$article->id)
@@ -96,6 +98,10 @@ foreach ($articles as $article) {
         continue;
     }
     foreach ($tags as $tag) {
+        // Skip tags the user cannot view based on access level
+        if (!in_array((int) $tag->access, $viewLevels, true)) {
+            continue;
+        }
         if (!isset($faqTabs[$tag->alias])) {
             $faqTabs[$tag->alias] = [
                 'title' => $tag->title,
