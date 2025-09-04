@@ -9,7 +9,7 @@ A modern, accessible Joomla module that displays FAQ articles grouped as tabs an
 - Multiple Navigation Styles: Tabs, Pills, or List
 - Flexible Layouts: Horizontal or vertical tab orientations
 - Accordion Content: Each tab contains an accordion of FAQ questions and answers
-- Smart Fallback: Untagged articles are grouped under a "General" category
+- Untagged articles are not displayed; only tagged articles generate tabs
 
 ### 🎨 Customizable Styling
 - Tab Styles: Choose between traditional Tabs, modern Pills, or List
@@ -105,6 +105,7 @@ Behavior details for List:
    - Create tags for different FAQ topics (e.g., "General", "Technical", "Billing")
    - Assign appropriate tags to each FAQ article
    - Articles can have multiple tags and will appear in multiple groups
+   - Note: Untagged articles are not displayed in the module
 
 ### Module Configuration
 

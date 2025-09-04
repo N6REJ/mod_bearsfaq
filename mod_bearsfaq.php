@@ -77,7 +77,6 @@ if (!$articles) {
 }
 
 $faqTabs = [];
-$untaggedKey = '__untagged__';
 
 foreach ($articles as $article) {
     // Lookup tags for this article
@@ -91,8 +90,7 @@ foreach ($articles as $article) {
     $tags = $db->loadObjectList();
 
     if (!$tags) {
-        $faqTabs[$untaggedKey]['title'] = Text::_('MOD_BEARSFAQ_TAB_GENERAL');
-        $faqTabs[$untaggedKey]['articles'][] = $article;
+        // Skip articles without tags: do not create a default tab
         continue;
     }
     foreach ($tags as $tag) {
