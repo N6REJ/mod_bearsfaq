@@ -19,6 +19,14 @@ A modern, accessible Joomla module that displays FAQ articles grouped as tabs an
 - Responsive Design: Works seamlessly across all device sizes
 - Professional Appearance: Enhanced styling with shadows, borders, and smooth transitions
 
+### 🔒 Advanced Permissions & Content Control
+- User Group Permissions: Control module visibility based on Joomla user groups
+- Restricted User Groups: Grant special access to privileged users who can see restricted content
+- Allowed User Groups: Limit module visibility to specific user groups
+- Restricted Tags: Hide specific FAQ tags from normal users
+- Public Access by Default: Module is accessible to all users (including guests) unless explicitly restricted
+- Flexible Access Levels: Create public FAQs with private sections for staff, members, or administrators
+
 ### ♿ Accessibility Features
 - WCAG 2.1 AA Compliant: Full accessibility support for screen readers
 - Keyboard Navigation: Complete keyboard support with arrow keys, Home/End
@@ -85,6 +93,112 @@ Behavior details for List:
 #### Underline Bar (Tabs and Pills)
 - Active Underline Height: Height of the active underline bar (in px)
 - Active Underline Color: RGBA or HEX; applied to the active tab underline bar
+
+### User Group Permissions
+
+The module includes a powerful permission system that allows you to control who can see the module and specific FAQ content based on Joomla user groups.
+
+#### Restricted User Groups (Special Access)
+- **Purpose**: Grant privileged access to specific user groups
+- **Behavior**: Users in these groups can see:
+  - The entire FAQ module
+  - ALL tags including restricted tags
+  - All FAQ content regardless of restrictions
+- **Use Cases**:
+  - Staff/Administrator FAQs
+  - Internal documentation
+  - Premium member content
+  - Department-specific information
+
+#### Allowed User Groups
+- **Purpose**: Limit module visibility to specific user groups
+- **Behavior**: 
+  - If specified, only users in these groups (or restricted groups) can see the module
+  - These users see non-restricted tags only
+  - Leave empty for public access (default)
+- **Use Cases**:
+  - Member-only FAQs
+  - Registered user content
+  - Subscriber-specific information
+
+#### Restricted Tags
+- **Purpose**: Hide specific FAQ tags from normal users
+- **Behavior**:
+  - Tags marked as restricted are hidden from all users EXCEPT those in "Restricted User Groups"
+  - Articles with restricted tags won't appear in tabs for normal users
+  - Users in restricted groups see these tags and their content
+- **Use Cases**:
+  - Confidential information
+  - Staff-only procedures
+  - Beta features documentation
+  - VIP customer support
+
+#### Permission Hierarchy
+
+The system works with the following access levels (from highest to lowest):
+
+1. **Restricted User Groups (Highest Access)**
+   - See the module: ✅
+   - See all tags: ✅
+   - See restricted tags: ✅
+
+2. **Allowed User Groups (Standard Access)**
+   - See the module: ✅
+   - See non-restricted tags: ✅
+   - See restricted tags: ❌
+
+3. **Public/Guest Users (Default Access)**
+   - See the module: ✅ (if no allowed groups specified)
+   - See non-restricted tags: ✅
+   - See restricted tags: ❌
+
+#### Configuration Examples
+
+**Example 1: Public FAQ with Staff Section**
+```
+Restricted User Groups: Administrators, Staff
+Allowed User Groups: (empty)
+Restricted Tags: Internal, Staff-Only, HR
+
+Result:
+- All users see the module with public FAQ tags
+- Administrators and Staff also see Internal, Staff-Only, and HR tags
+```
+
+**Example 2: Members-Only FAQ**
+```
+Restricted User Groups: (empty)
+Allowed User Groups: Registered, Premium Members
+Restricted Tags: (empty)
+
+Result:
+- Only registered users and premium members see the module
+- Public/guest users don't see the module at all
+```
+
+**Example 3: Premium Content**
+```
+Restricted User Groups: Premium Members
+Allowed User Groups: Registered
+Restricted Tags: Premium, Advanced, Pro-Tips
+
+Result:
+- Registered users see the module with basic FAQ tags
+- Premium Members see all tags including Premium, Advanced, and Pro-Tips
+- Public/guest users don't see the module
+```
+
+**Example 4: Public Access (Default)**
+```
+Restricted User Groups: (empty)
+Allowed User Groups: (empty)
+Restricted Tags: (empty)
+
+Result:
+- Everyone (including guests) sees the module
+- All tags are visible to everyone
+- This is the default behavior
+```
 
 ## Usage
 

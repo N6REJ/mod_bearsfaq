@@ -75,6 +75,33 @@
                 </field>
                 <field name="tab_gap" type="number" label="MOD_BEARSFAQ_FIELD_TAB_GAP_LABEL" description="MOD_BEARSFAQ_FIELD_TAB_GAP_DESC" default="2" min="0" max="64" />
             </fieldset>
+            <fieldset name="permissions" label="MOD_BEARSFAQ_FIELDSET_PERMISSIONS_LABEL" description="MOD_BEARSFAQ_FIELDSET_PERMISSIONS_DESC">
+                <field
+                    name="restricted_user_groups"
+                    type="usergrouplist"
+                    label="MOD_BEARSFAQ_FIELD_RESTRICTED_USER_GROUPS_LABEL"
+                    description="MOD_BEARSFAQ_FIELD_RESTRICTED_USER_GROUPS_DESC"
+                    multiple="true"
+                    default=""
+                />
+                <field
+                    name="allowed_user_groups"
+                    type="usergrouplist"
+                    label="MOD_BEARSFAQ_FIELD_ALLOWED_USER_GROUPS_LABEL"
+                    description="MOD_BEARSFAQ_FIELD_ALLOWED_USER_GROUPS_DESC"
+                    multiple="true"
+                    default=""
+                />
+                <field
+                    name="restricted_tags"
+                    type="tag"
+                    label="MOD_BEARSFAQ_FIELD_RESTRICTED_TAGS_LABEL"
+                    description="MOD_BEARSFAQ_FIELD_RESTRICTED_TAGS_DESC"
+                    multiple="true"
+                    mode="nested"
+                    default=""
+                />
+            </fieldset>
             <fieldset name="advanced">
                 <field
                     name="moduleclass_sfx"
