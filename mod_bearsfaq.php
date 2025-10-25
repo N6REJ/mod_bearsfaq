@@ -38,10 +38,63 @@ $wa->registerAndUseScript('mod_bearsfaq.accessibility', $jsPath, [], ['defer' =>
 // Get database
 $db    = Factory::getDbo();
 $app   = Factory::getApplication();
+$user  = Factory::getUser();
 
 // Module params
 $categoryId  = (int) $params->get('faq_category_id', 0);
 $maxArticles = (int) $params->get('max_articles', 100);
+
+// Get restricted tags
+$restrictedTags = $params->get('restricted_tags', []);
+if (!is_array($restrictedTags)) {
+    $restrictedTags = $restrictedTags ? explode(',', $restrictedTags) : [];
+}
+// Convert to integers
+$restrictedTags = array_map('intval', array_filter($restrictedTags));
+
+// Check user group permissions
+$restrictedGroups = $params->get('restricted_user_groups', []);
+$allowedGroups    = $params->get('allowed_user_groups', []);
+
+// Convert to arrays if needed
+if (!is_array($restrictedGroups)) {
+    $restrictedGroups = $restrictedGroups ? explode(',', $restrictedGroups) : [];
+}
+if (!is_array($allowedGroups)) {
+    $allowedGroups = $allowedGroups ? explode(',', $allowedGroups) : [];
+}
+
+// Get user's groups
+$userGroups = $user->getAuthorisedGroups();
+
+// Check if user is in restricted groups (they get special access to restricted tags)
+$isInRestrictedGroup = false;
+if (!empty($restrictedGroups)) {
+    foreach ($restrictedGroups as $restrictedGroup) {
+        if (in_array((int)$restrictedGroup, $userGroups)) {
+            $isInRestrictedGroup = true;
+            break;
+        }
+    }
+}
+
+// Check if user is in allowed groups (if specified)
+// If no allowed groups are specified, everyone has access (including public/guest users)
+if (!empty($allowedGroups)) {
+    $hasAccess = false;
+    foreach ($allowedGroups as $allowedGroup) {
+        if (in_array((int)$allowedGroup, $userGroups)) {
+            $hasAccess = true;
+            break;
+        }
+    }
+    // If user is not in allowed groups AND not in restricted groups, deny access
+    if (!$hasAccess && !$isInRestrictedGroup) {
+        // User is not in any allowed group or restricted group, don't show module
+        return;
+    }
+}
+// If no allowed groups specified, all users have access by default (including public)
 
 // Validate/verify category
 if (!$categoryId) {
@@ -94,6 +147,11 @@ foreach ($articles as $article) {
         continue;
     }
     foreach ($tags as $tag) {
+        // Skip restricted tags only if user is NOT in a restricted group
+        if (!$isInRestrictedGroup && !empty($restrictedTags) && in_array((int)$tag->id, $restrictedTags)) {
+            continue;
+        }
+        
         if (!isset($faqTabs[$tag->alias])) {
             $faqTabs[$tag->alias] = [
                 'title' => $tag->title,
