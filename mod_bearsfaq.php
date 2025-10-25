@@ -14,6 +14,7 @@ use Joomla\CMS\Tag\TagHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Content\Site\Model\ArticlesModel;
 use Joomla\Component\Content\Site\Helper\RouteHelper as ContentHelperRoute;
+use Joomla\CMS\Plugin\PluginHelper;
 
 // Ensure Bootstrap 5 assets are loaded
 HTMLHelper::_('bootstrap.framework');
@@ -250,7 +251,16 @@ foreach ($faqTabs as $tabId => $tabInfo) {
         $itemId = $accordId . '-item-' . $faq->id;
         $collapseId = $accordId . '-collapse-' . $faq->id;
         $headingId = $accordId . '-heading-' . $faq->id;
+        
+        // Get article content
         $answerHTML = $faq->fulltext ? $faq->fulltext : $faq->introtext;
+        
+        // Process content plugins to render custom fields {field X}
+        PluginHelper::importPlugin('content');
+        $faq->text = $answerHTML;
+        $app->triggerEvent('onContentPrepare', ['com_content.article', &$faq, &$params, 0]);
+        $answerHTML = $faq->text;
+        
         echo '<div class="accordion-item">';
         echo '<h3 class="accordion-header" id="' . $headingId . '">';
         // Use data-bs-parent attribute to ensure only one is open per accordion/tab
