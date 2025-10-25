@@ -60,15 +60,7 @@ $allowedGroups    = (array) $params->get('allowed_user_groups', []);
 $userGroups = $user->getAuthorisedGroups();
 
 // Check if user is in restricted groups (they get special access to restricted tags)
-$isInRestrictedGroup = false;
-if (!empty($restrictedGroups)) {
-    foreach ($restrictedGroups as $restrictedGroup) {
-        if (in_array((int)$restrictedGroup, $userGroups)) {
-            $isInRestrictedGroup = true;
-            break;
-        }
-    }
-}
+$isInRestrictedGroup = !empty($restrictedGroups) && count(array_intersect($userGroups, $restrictedGroups)) > 0;
 
 // Check if user is in allowed groups (if specified)
 // If no allowed groups are specified, everyone has access (including public/guest users)
