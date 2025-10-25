@@ -53,16 +53,8 @@ if (!is_array($restrictedTags)) {
 $restrictedTags = array_map('intval', array_filter($restrictedTags));
 
 // Check user group permissions
-$restrictedGroups = $params->get('restricted_user_groups', []);
-$allowedGroups    = $params->get('allowed_user_groups', []);
-
-// Convert to arrays if needed
-if (!is_array($restrictedGroups)) {
-    $restrictedGroups = $restrictedGroups ? explode(',', $restrictedGroups) : [];
-}
-if (!is_array($allowedGroups)) {
-    $allowedGroups = $allowedGroups ? explode(',', $allowedGroups) : [];
-}
+$restrictedGroups = (array) $params->get('restricted_user_groups', []);
+$allowedGroups    = (array) $params->get('allowed_user_groups', []);
 
 // Get user's groups
 $userGroups = $user->getAuthorisedGroups();
