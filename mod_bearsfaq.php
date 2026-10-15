@@ -1,8 +1,13 @@
 <?php
+
 /**
  * BearsFAQ Module - Displays FAQ articles grouped as tabs and accordions by tag
+ *
  * @package     Joomla.Site
  * @subpackage  mod_bearsfaq
+ *
+ * @copyright   Copyright (C) 2025 - 2026 N6REJ. All rights reserved.
+ * @license     GNU General Public License version 3 or later; see LICENSE
  */
 
 defined('_JEXEC') or die;
@@ -10,11 +15,12 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Tag\TagHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\Component\Content\Site\Model\ArticlesModel;
-use Joomla\Component\Content\Site\Helper\RouteHelper as ContentHelperRoute;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
+use Joomla\CMS\User\User;
+use Joomla\Component\Content\Site\Helper\RouteHelper as ContentHelperRoute;
+use Joomla\Database\DatabaseInterface;
 
 // Ensure Bootstrap 5 assets are loaded
 HTMLHelper::_('bootstrap.framework');
@@ -37,9 +43,9 @@ $jsPath   = file_exists(JPATH_ROOT . '/' . $mediaJs)
 $wa->registerAndUseScript('mod_bearsfaq.accessibility', $jsPath, [], ['defer' => true]);
 
 // Get database
-$db    = Factory::getDbo();
+$db    = Factory::getContainer()->get(DatabaseInterface::class);
 $app   = Factory::getApplication();
-$user  = Factory::getUser();
+$user  = $app->getIdentity() ?: new User();
 
 // Module params
 $categoryId  = (int) $params->get('faq_category_id', 0);
@@ -91,7 +97,7 @@ $query = $db->getQuery(true)
     ->select('COUNT(*)')
     ->from($db->qn('#__categories'))
     ->where('id = ' . (int) $categoryId)
-    ->where($db->qn('extension') . ' = "com_content"');
+    ->where($db->qn('extension') . ' = ' . $db->q('com_content'));
 $db->setQuery($query);
 $categoryExists = (int) $db->loadResult();
 if (!$categoryExists) {
@@ -258,7 +264,21 @@ foreach ($faqTabs as $tabId => $tabInfo) {
         // Process content plugins to render custom fields {field X}
         PluginHelper::importPlugin('content');
         $faq->text = $answerHTML;
-        $app->triggerEvent('onContentPrepare', ['com_content.article', &$faq, &$params, 0]);
+
+        if (class_exists(ContentPrepareEvent::class)) {
+            $app->getDispatcher()->dispatch(
+                'onContentPrepare',
+                new ContentPrepareEvent('onContentPrepare', [
+                    'context' => 'com_content.article',
+                    'subject' => $faq,
+                    'params'  => $params,
+                    'page'    => 0,
+                ])
+            );
+        } else {
+            $app->triggerEvent('onContentPrepare', ['com_content.article', &$faq, &$params, 0]);
+        }
+
         $answerHTML = $faq->text;
         
         echo '<div class="accordion-item">';

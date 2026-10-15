@@ -1,6 +1,13 @@
 <?php
-/*
- * Joomla BearsFAQ Frontend Layout
+
+/**
+ * BearsFAQ Module - Displays FAQ articles grouped as tabs and accordions by tag
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_bearsfaq
+ *
+ * @copyright   Copyright (C) 2025 - 2026 N6REJ. All rights reserved.
+ * @license     GNU General Public License version 3 or later; see LICENSE
  */
 
 /** @var  \Joomla\CMS\Document\HtmlDocument  $doc */
