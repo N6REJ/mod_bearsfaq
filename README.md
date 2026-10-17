@@ -250,8 +250,8 @@ Result:
 ## Technical Details
 
 ### Requirements
-- Joomla: 4.0+ or 5.0+
-- PHP: 7.4+
+- Joomla: 5.0+ or 6.0+
+- PHP: 8.1+ for Joomla 5; 8.3+ for Joomla 6
 - Bootstrap: 5.x (automatically loaded)
 
 ### File Structure
@@ -403,7 +403,7 @@ This module is licensed under the GNU General Public License v3.0. See [LICENSE]
 - Author: N6REJ
 - Email: troy@hallhome.us
 - Website: https://hallhome.us
-- Framework: Joomla 4.x/5.x
+- Framework: Joomla 5.x/6.x
 - UI Framework: Bootstrap 5
 - Accessibility: WCAG 2.1 AA compliant
 
