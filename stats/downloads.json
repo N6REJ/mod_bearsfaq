@@ -3,11 +3,11 @@
   "owner": "N6REJ",
   "repo": "mod_bearsfaq",
   "visibility": "public",
-  "generatedAt": "2026-10-27T11:21:32.611Z",
+  "generatedAt": "2026-10-28T11:54:58.693Z",
   "stats": {
     "total": 65,
-    "day": 1,
-    "week": 30,
+    "day": 0,
+    "week": 15,
     "month": 40
   },
   "partial": {
@@ -17,9 +17,9 @@
   },
   "snapshots": {
     "windowDays": 180,
-    "count": 18,
+    "count": 19,
     "firstDate": "2026-10-10",
-    "lastDate": "2026-10-27",
+    "lastDate": "2026-10-28",
     "series": {
       "2026-10-10": 25,
       "2026-10-11": 25,
@@ -38,7 +38,8 @@
       "2026-10-24": 50,
       "2026-10-25": 50,
       "2026-10-26": 64,
-      "2026-10-27": 65
+      "2026-10-27": 65,
+      "2026-10-28": 65
     }
   },
   "profile": {
